@@ -11,7 +11,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class parseLinks {
-    // Rewrite with while buffer.readline != null so as to parse every page
 
     public static void parseFile() throws IOException {
 
@@ -21,7 +20,6 @@ public class parseLinks {
             is.readLine();
         }
         while (is.readLine() != null) {
-            // is.skip(94);
             is.readLine();
             Document doc = Jsoup.connect(is.readLine()).get();
             Elements body = doc.select("section[id]").append("\n\n\n\n\n\n");

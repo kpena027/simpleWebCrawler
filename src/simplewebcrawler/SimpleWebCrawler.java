@@ -11,12 +11,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-
 public class SimpleWebCrawler {
 
     public static DB db = new DB();
-    
-    public static void processURL(String URL) throws IOException, SQLException { 
+
+    public static void processURL(String URL) throws IOException, SQLException {
 
         // Check if given URL is not already in DB
         String sql = "select * from Record where URL = '" + URL + "'";
@@ -37,24 +36,19 @@ public class SimpleWebCrawler {
                 Logger.log(URL);
             }
 
+            // Get title from posting
+            //  Element linkz = doc.select("a").get(17);
             // Get links and make recursive call to processURL
-            Element linkz = doc.select("a").get(17);
             Elements questions = doc.select("a[href]");
-            String linkText = linkz.text();
-            Elements body = doc.select("section[id]");
-            
-            
+
+
+
             // Displays all links/jobs in http://miami.craigslist.org/search/sof?query=+
             for (Element link : questions) {
-                if (link.attr("href").contains("/mdc/sof/")) {          
+                if (link.attr("href").contains("/mdc/sof/")) {
                     processURL(link.attr("abs:href"));
                 }
             }
-            // Displays body in specific listings
-          //  for (Element p: body) {
-            //    System.out.println(p.text());
-             //   System.out.println(linkText);
-           // }
         }
     }
 
